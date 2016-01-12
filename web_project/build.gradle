@@ -7,24 +7,46 @@
  * user guide available at https://docs.gradle.org/2.10/userguide/tutorial_java_projects.html
  */
 
+// For Tomcat Plugin
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.bmuschko:gradle-tomcat-plugin:2.0'
+  }
+}
+
 // Apply the java plugin to add support for Java
-apply plugin: 'java'
+// apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use 'jcenter' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+  // Use 'jcenter' for resolving your dependencies.
+  // You can declare any Maven/Ivy/file repository here.
+  jcenter()
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    // The production code uses the SLF4J logging API at compile time
-    compile 'org.slf4j:slf4j-api:1.7.13'
+  providedCompile 'javax:javaee-web-api:6.0' // Add Java EE 6 API as a dependency
 
-    // Declare the dependency for your favourite test framework you want to use in your tests.
-    // TestNG is also supported by the Gradle Test task. Just change the
-    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
-    // 'test.useTestNG()' to your build script.
-    testCompile 'junit:junit:4.12'
+  // The production code uses the SLF4J logging API at compile time
+  compile 'org.slf4j:slf4j-api:1.7.13'
+
+  // Declare the dependency for your favourite test framework you want to use in your tests.
+  // TestNG is also supported by the Gradle Test task. Just change the
+  // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
+  // 'test.useTestNG()' to your build script.
+  testCompile 'junit:junit:4.12'
+
+  // Libraries which is for Tomcat
+  def tomcatVersion = '7.0.52'
+  tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+         "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+  tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+    exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+  }
 }
