@@ -1,10 +1,10 @@
-To run the `hello` task:
+## To run the `hello` task:
 
 ```
 $ gradle hello
 ```
 
-To run the task & daemonize the gradle process:
+## To run the task & daemonize the gradle process:
 
 ```
 $ gradle --daemon hello
@@ -26,3 +26,9 @@ Total time: 0.526 secs
 ```
 
 2nd run is much faster because there's a gradle daemon.
+
+## To create a gradle wrapper
+
+```
+$ gradle wrapper
+```
