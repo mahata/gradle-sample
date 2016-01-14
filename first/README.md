@@ -27,8 +27,9 @@ Total time: 0.526 secs
 
 2nd run is much faster because there's a gradle daemon.
 
-## To create a gradle wrapper
+## To create & run "gradle wrapper""
 
 ```
 $ gradle wrapper
+$ ./gradlew tasks  # Automatically fetch the proper version of gradle
 ```
